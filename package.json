@@ -1,0 +1,14 @@
+{
+  "name": "multi-level_marketing",
+  "version": "1.0.0",
+  "description": "A multi-level Marketing to service a small business with a number of Agents.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gerald Rushwaya",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
