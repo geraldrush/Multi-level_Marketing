@@ -2,65 +2,58 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// Create an order
-export const createOrder = async (req, res) => {
-  const { userId, agentId, productId, quantity } = req.body;
+// Create a payment
+export const createPayment = async (req, res) => {
+  const { userId, amount, method } = req.body;
   try {
-    const order = await prisma.order.create({
+    const payment = await prisma.payment.create({
       data: {
         user: { connect: { id: userId } },
-        agent: { connect: { id: agentId } },
-        product: { connect: { id: productId } },
-        quantity,
+        amount,
+        method,
       },
       include: {
         user: true,
-        agent: true,
-        product: true,
       },
     });
-    res.status(201).json(order);
+    res.status(201).json(payment);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
   }
 };
 
-// Get all orders
-export const getOrders = async (req, res) => {
+// Get all payments
+export const getPayments = async (req, res) => {
   try {
-    const orders = await prisma.order.findMany({
+    const payments = await prisma.payment.findMany({
       include: {
         user: true,
-        agent: true,
-        product: true,
       },
     });
-    res.json(orders);
+    res.json(payments);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
   }
 };
 
-// Get one order by id
-export const getOrder = async (req, res) => {
+// Get one payment by id
+export const getPayment = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await prisma.order.findUnique({
+    const payment = await prisma.payment.findUnique({
       where: {
         id,
       },
       include: {
         user: true,
-        agent: true,
-        product: true,
       },
     });
-    if (order) {
-      res.json(order);
+    if (payment) {
+      res.json(payment);
     } else {
-      res.status(404).json({ error: "Order not found" });
+      res.status(404).json({ error: "Payment not found" });
     }
   } catch (error) {
     console.error(error);
@@ -68,43 +61,41 @@ export const getOrder = async (req, res) => {
   }
 };
 
-// Update an order
-export const updateOrder = async (req, res) => {
+// Update a payment
+export const updatePayment = async (req, res) => {
   const { id } = req.params;
-  const { quantity, status } = req.body;
+  const { amount, method } = req.body;
 
   try {
-    const order = await prisma.order.update({
+    const payment = await prisma.payment.update({
       where: {
         id,
       },
       data: {
-        quantity,
-        status,
+        amount,
+        method,
       },
       include: {
         user: true,
-        agent: true,
-        product: true,
       },
     });
-    res.json(order);
+    res.json(payment);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
   }
 };
 
-// Delete an order
-export const deleteOrder = async (req, res) => {
+// Delete a payment
+export const deletePayment = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await prisma.order.delete({
+    const payment = await prisma.payment.delete({
       where: {
         id,
       },
     });
-    res.json(order);
+    res.json(payment);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
