@@ -1,8 +1,4 @@
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
-//import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../utils/prisma.js";
 
 // Create a user
 export const createUser = async (req, res) => {

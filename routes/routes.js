@@ -1,4 +1,6 @@
 import express from "express";
+import prisma from "../utils/prisma.js";
+
 import {
   createUser,
   getUsers,
@@ -16,4 +18,3 @@ router.delete("/:id", deleteUser);
 router.patch("/:id", updateUser);
 
 export default router;
-
