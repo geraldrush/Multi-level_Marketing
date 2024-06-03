@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,24 +13,25 @@ model User {
   email        String         @unique
   password     String
   role         UserRole       @default(USER)
-  Order        Order[]
-  Payment      Payment[]
+  orders       Order[]
+  payments     Payment[]
   location     String
-  Agent        Agent[]
-  Notification Notification[]
-  Chat         Chat[]
+  agents       Agent[]
+  notifications Notification[]
+  chats        Chat[]
 }
 
 model Agent {
   id       String    @id @default(cuid())
-  user     User      @relation(fields: [id], references: [id])
+  userId   String
+  user     User      @relation(fields: [userId], references: [id])
   name     String
   location String
   products Product[]
   stock    Int
   sales    Int
-  Order    Order[]
-  Chat     Chat[]
+  orders   Order[]
+  chats    Chat[]
 }
 
 model Product {
@@ -45,41 +40,48 @@ model Product {
   description String
   price       Int
   commission  Int
-  Order       Order[]
-  Agent       Agent?  @relation(fields: [agentId], references: [id])
+  orders      Order[]
   agentId     String?
+  agent       Agent?  @relation(fields: [agentId], references: [id])
 }
 
 model Order {
-  id       String      @id @default(cuid())
-    user     User        @relation(fields: [id], references: [id], map: "order_user")
-    agent    Agent       @relation(fields: [id], references: [id], map: "order_agent")
-    product  Product     @relation(fields: [id], references: [id], map: "order_product")
-    quantity Int
-    status   OrderStatus @default(PENDING)
-  }
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], map: "order_user")
+  agentId   String
+  agent     Agent       @relation(fields: [agentId], references: [id], map: "order_agent")
+  productId String
+  product   Product     @relation(fields: [productId], references: [id], map: "order_product")
+  quantity  Int
+  status    OrderStatus @default(PENDING)
+}
 
-  model Notification {
-    id      String  @id @default(cuid())
-    user    User    @relation(fields: [id], references: [id])
-    message String
-    read    Boolean @default(false)
-  }
+model Notification {
+  id      String  @id @default(cuid())
+  userId  String
+  user    User    @relation(fields: [userId], references: [id])
+  message String
+  read    Boolean @default(false)
+}
 
-  model Chat {
-    id        String   @id @default(cuid())
-    user      User     @relation(fields: [id], references: [id], map: "chat_user")
-    agent     Agent    @relation(fields: [id], references: [id], map: "chat_agent")
-    message   String
+model Chat {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], map: "chat_user")
+  agentId   String
+  agent     Agent    @relation(fields: [agentId], references: [id], map: "chat_agent")
+  message   String
   timestamp DateTime @default(now())
 }
 
 model Payment {
-  id     String   @id @default(cuid())
-  user   User     @relation(fields: [id], references: [id])
-  amount Int
-  method String
-  date   DateTime @default(now())
+  id      String   @id @default(cuid())
+  userId  String
+  user    User     @relation(fields: [userId], references: [id])
+  amount  Int
+  method  String
+  date    DateTime @default(now())
 }
 
 enum UserRole {
