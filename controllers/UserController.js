@@ -25,11 +25,11 @@ export const getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
       include: {
-        Order: true,
-        Payment: true,
-        Agent: true,
-        Notification: true,
-        Chat: true,
+        orders: true,
+        payments: true,
+        agents: true,
+        notifications: true,
+        chats: true,
       },
     });
     res.json(users);
@@ -48,15 +48,15 @@ export const getUser = async (req, res) => {
         id,
       },
       include: {
-        Order: true,
-        Payment: true,
-        Agent: true,
-        Notification: true,
-        Chat: true,
+        orders: true,
+        payments: true,
+        agents: true,
+        notifications: true,
+        chats: true,
       },
     });
     if (user) {
-      res.json(user);
+      res.render("user", { user });
     } else {
       res.status(404).json({ error: "User not found" });
     }
@@ -72,7 +72,7 @@ export const updateUser = async (req, res) => {
   const { name, email, password, role, location } = req.body;
 
   // Check if the provided role is valid
-  if (!["USER", "ADMIN", "DELIVERY"].includes(role)) {
+  if (!["USER", "AGENT", "ADMIN"].includes(role)) {
     return res.status(400).json({ error: "Invalid role" });
   }
 
@@ -89,11 +89,11 @@ export const updateUser = async (req, res) => {
         location,
       },
       include: {
-        Order: true,
-        Payment: true,
-        Agent: true,
-        Notification: true,
-        Chat: true,
+        orders: true,
+        payments: true,
+        agents: true,
+        notifications: true,
+        chats: true,
       },
     });
     res.json(user);
