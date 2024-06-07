@@ -54,7 +54,9 @@ app.use("/products", productRoutes);
 app.use("/orders", ordersRoutes);
 app.use("/agents", agentsRoutes);
 
-
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
