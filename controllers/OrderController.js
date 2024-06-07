@@ -19,7 +19,7 @@ export const createOrder = async (req, res) => {
         product: true,
       },
     });
-    res.status(201).json(order);
+    res.status(201).render('order', { order });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -36,7 +36,7 @@ export const getOrders = async (req, res) => {
         product: true,
       },
     });
-    res.json(orders);
+    res.render('orders', { orders });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -58,7 +58,7 @@ export const getOrder = async (req, res) => {
       },
     });
     if (order) {
-      res.json(order);
+      res.render('order', { order });
     } else {
       res.status(404).json({ error: "Order not found" });
     }
@@ -88,7 +88,7 @@ export const updateOrder = async (req, res) => {
         product: true,
       },
     });
-    res.json(order);
+    res.render('order', { order });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -104,7 +104,7 @@ export const deleteOrder = async (req, res) => {
         id,
       },
     });
-    res.json(order);
+    res.render('order', { order });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });

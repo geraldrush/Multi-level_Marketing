@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Details</title>
+</head>
+<body>
+  <h1>Order Details</h1>
+  <ul>
+    <li><strong>ID:</strong> <%= order.id %></li>
+    <li><strong>User:</strong> <%= order.user.name %></li>
+    <li><strong>Agent:</strong> <%= order.agent.name %></li>
+    <li><strong>Product:</strong> <%= order.product.name %></li>
+    <li><strong>Quantity:</strong> <%= order.quantity %></li>
+    <li><strong>Status:</strong> <%= order.status %></li>
+  </ul>
+</body>
+</html>

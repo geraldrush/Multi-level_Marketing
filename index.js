@@ -1,6 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/Users.js";
+import productRoutes from "./routes/Product.js";
+import ordersRoutes from "./routes/Order.js";
+import agentsRoutes from "./routes/Agent.js";
 import dotenv from "dotenv";
 import RedisStore from "connect-redis";
 import session from "express-session";
@@ -45,7 +48,13 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 // Routes
+
 app.use("/users", userRoutes);
+app.use("/products", productRoutes);
+app.use("/orders", ordersRoutes);
+app.use("/agents", agentsRoutes);
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

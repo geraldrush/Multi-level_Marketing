@@ -12,11 +12,11 @@ export const createProduct = async (req, res) => {
         description,
         price,
         commission,
-        Agent: agentId ? { connect: { id: agentId } } : undefined,
+        agentId,
       },
       include: {
-        Order: true,
-        Agent: true,
+        orders: true,
+        agent: true,
       },
     });
     res.status(201).json(product);
@@ -31,11 +31,11 @@ export const getProducts = async (req, res) => {
   try {
     const products = await prisma.product.findMany({
       include: {
-        Order: true,
-        Agent: true,
+        orders: true,
+        agent: true,
       },
     });
-    res.json(products);
+    res.render("products", { products }); // Render the products.ejs template
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -51,12 +51,12 @@ export const getProduct = async (req, res) => {
         id,
       },
       include: {
-        Order: true,
-        Agent: true,
+        orders: true,
+        agent: true,
       },
     });
     if (product) {
-      res.json(product);
+      res.render("product", { product }); // Render the product.ejs template
     } else {
       res.status(404).json({ error: "Product not found" });
     }
@@ -81,11 +81,11 @@ export const updateProduct = async (req, res) => {
         description,
         price,
         commission,
-        Agent: agentId ? { connect: { id: agentId } } : undefined,
+        agentId,
       },
       include: {
-        Order: true,
-        Agent: true,
+        orders: true,
+        agent: true,
       },
     });
     res.json(product);

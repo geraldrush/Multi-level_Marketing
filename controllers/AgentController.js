@@ -16,11 +16,11 @@ export const createAgent = async (req, res) => {
       },
       include: {
         products: true,
-        Order: true,
-        Chat: true,
+        orders: true,
+        chats: true,
       },
     });
-    res.status(201).json(agent);
+    res.status(201).render('agent', { agent });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -34,11 +34,11 @@ export const getAgents = async (req, res) => {
       include: {
         user: true,
         products: true,
-        Order: true,
-        Chat: true,
+        orders: true,
+        chats: true,
       },
     });
-    res.json(agents);
+    res.render('agents', { agents });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -56,12 +56,12 @@ export const getAgent = async (req, res) => {
       include: {
         user: true,
         products: true,
-        Order: true,
-        Chat: true,
+        orders: true,
+        chats: true,
       },
     });
     if (agent) {
-      res.json(agent);
+      res.render('agent', { agent });
     } else {
       res.status(404).json({ error: "Agent not found" });
     }
@@ -90,11 +90,11 @@ export const updateAgent = async (req, res) => {
       include: {
         user: true,
         products: true,
-        Order: true,
-        Chat: true,
+        orders: true,
+        chats: true,
       },
     });
-    res.json(agent);
+    res.render('agent', { agent });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
@@ -110,7 +110,7 @@ export const deleteAgent = async (req, res) => {
         id,
       },
     });
-    res.json(agent);
+    res.render('agent', { agent });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });

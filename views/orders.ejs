@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Orders</title>
+</head>
+<body>
+  <h1>Orders</h1>
+  <ul>
+    <% orders.forEach(order => { %>
+      <li>
+        <strong>ID:</strong> <%= order.id %><br>
+        <strong>User:</strong> <%= order.user.name %><br>
+        <strong>Agent:</strong> <%= order.agent.name %><br>
+        <strong>Product:</strong> <%= order.product.name %><br>
+        <strong>Quantity:</strong> <%= order.quantity %><br>
+        <strong>Status:</strong> <%= order.status %><br>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

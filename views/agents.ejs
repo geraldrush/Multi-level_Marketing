@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agents</title>
+</head>
+<body>
+  <h1>Agents</h1>
+  <ul>
+    <% agents.forEach(agent => { %>
+      <li>
+        <strong>ID:</strong> <%= agent.id %><br>
+        <strong>Name:</strong> <%= agent.name %><br>
+        <strong>Location:</strong> <%= agent.location %><br>
+        <strong>Stock:</strong> <%= agent.stock %><br>
+        <strong>Sales:</strong> <%= agent.sales %><br>
+        <strong>User:</strong> <%= agent.user.name %><br>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

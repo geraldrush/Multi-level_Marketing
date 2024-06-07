@@ -39,7 +39,7 @@ model Product {
   name        String
   description String
   price       Int
-  commission  Int
+  commission  Float
   orders      Order[]
   agentId     String?
   agent       Agent?  @relation(fields: [agentId], references: [id])
