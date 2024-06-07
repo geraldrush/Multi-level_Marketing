@@ -47,11 +47,6 @@ app.use(bodyParser.json());
 // Routes
 app.use("/users", userRoutes);
 
-app.get("/test-session", (req, res) => {
-  req.session.test = "Session is working";
-  res.send("Session set");
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

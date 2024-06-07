@@ -1,20 +1,21 @@
-import express from "express";
-import prisma from "../utils/prisma.js";
-
-import {
-  createUser,
-  getUsers,
-  getUser,
-  deleteUser,
-  updateUser,
-} from "../controllers/UserController.js";
+import express from 'express';
+import { createUser, getUsers, getUser, updateUser, deleteUser } from '../controllers/UserController.js';
 
 const router = express.Router();
 
-router.get("/", getUsers);
-router.post("/", createUser);
-router.get("/:id", getUser);
-router.delete("/:id", deleteUser);
-router.patch("/:id", updateUser);
+// Create a user
+router.post('/', createUser);
+
+// Get all users
+router.get('/', getUsers);
+
+// Get one user by id
+router.get('/:id', getUser);
+
+// Update a user
+router.put('/:id', updateUser);
+
+// Delete a user
+router.delete('/:id', deleteUser);
 
 export default router;

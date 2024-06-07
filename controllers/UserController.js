@@ -32,7 +32,7 @@ export const getUsers = async (req, res) => {
         chats: true,
       },
     });
-    res.json(users);
+    res.render("users", { users }); // Render the 'users' EJS view
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });

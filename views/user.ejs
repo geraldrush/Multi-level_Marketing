@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body>
+    <h1>User Details</h1>
+    <ul>
+        <li><strong>ID:</strong> <%= user.id %></li>
+        <li><strong>Name:</strong> <%= user.name %></li>
+        <li><strong>Email:</strong> <%= user.email %></li>
+        <li><strong>Role:</strong> <%= user.role %></li>
+        <li><strong>Location:</strong> <%= user.location %></li>
+        <li><strong>Orders:</strong> <%= user.orders.length %></li>
+        <li><strong>Payments:</strong> <%= user.payments.length %></li>
+        <li><strong>Agents:</strong> <%= user.agents.length %></li>
+        <li><strong>Notifications:</strong> <%= user.notifications.length %></li>
+        <li><strong>Chats:</strong> <%= user.chats.length %></li>
+    </ul>
+</body>
+</html>
