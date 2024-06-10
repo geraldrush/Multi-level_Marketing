@@ -15,7 +15,7 @@ import userRoutes from "./routes/Users.js";
 import productRoutes from "./routes/Product.js";
 import ordersRoutes from "./routes/Order.js";
 import agentsRoutes from "./routes/Agent.js";
-import "./routes/auth.js"; // Ensure this file properly configures passport
+import "./routes/auth.js"; 
 
 dotenv.config();
 
@@ -208,10 +208,10 @@ app.get(
 );
 
 // Routes
-app.use("/api/users", userRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/orders", ordersRoutes);
-app.use("/api/agents", agentsRoutes);
+app.use("/users", userRoutes);
+app.use("/products", productRoutes);
+app.use("/orders", ordersRoutes);
+app.use("/agents", agentsRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");
