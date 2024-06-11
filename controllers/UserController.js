@@ -6,8 +6,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-
-
 // Get all users
 export const getUsers = async (req, res) => {
   try {
@@ -24,7 +22,9 @@ export const getUsers = async (req, res) => {
     console.log(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res
+      .status(500)
+      .json({ error: "Something went wrong while fetching users" });
   }
 };
 
@@ -34,7 +34,7 @@ export const getUser = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        id,
+        id, // Use id as a string
       },
       include: {
         orders: true,
@@ -51,7 +51,9 @@ export const getUser = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res
+      .status(500)
+      .json({ error: "Something went wrong while fetching the user" });
   }
 };
 
@@ -69,18 +71,23 @@ export const updateUser = async (req, res) => {
     // Hash the password if provided
     let hashedPassword = password ? await bcrypt.hash(password, 10) : undefined;
 
+    const updatedUserData = {
+      name,
+      gmail,
+      contactNumber,
+      role,
+      location,
+    };
+
+    if (hashedPassword) {
+      updatedUserData.password = hashedPassword;
+    }
+
     const user = await prisma.user.update({
       where: {
-        id,
+        id, // Use id as a string
       },
-      data: {
-        name,
-        gmail,
-        contactNumber,
-        password: hashedPassword,
-        role,
-        location,
-      },
+      data: updatedUserData,
       include: {
         orders: true,
         payments: true,
@@ -92,7 +99,9 @@ export const updateUser = async (req, res) => {
     res.json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res
+      .status(500)
+      .json({ error: "Something went wrong while updating the user" });
   }
 };
 
@@ -102,12 +111,14 @@ export const deleteUser = async (req, res) => {
   try {
     const user = await prisma.user.delete({
       where: {
-        id,
+        id, // Use id as a string
       },
     });
     res.json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res
+      .status(500)
+      .json({ error: "Something went wrong while deleting the user" });
   }
 };
