@@ -4,13 +4,12 @@ import dotenv from "dotenv";
 import session from "express-session";
 import RedisStore from "connect-redis";
 import { createClient } from "redis";
-import passport from "./utils/passport.js"; 
 import userRoutes from "./routes/Users.js";
 import productRoutes from "./routes/Product.js";
 import ordersRoutes from "./routes/Order.js";
 import agentsRoutes from "./routes/Agent.js";
 import authRoutes from "./routes/auth.js";
-
+import passport from "./utils/passport.js";
 
 dotenv.config();
 
@@ -35,8 +34,8 @@ app.use(
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 1000 * 60 * 60 * 24 * 30, 
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
       httpOnly: true,
       sameSite: "lax",
     },
@@ -62,7 +61,6 @@ const ensureAuthenticated = (req, res, next) => {
   res.render("overlay"); // Render the overlay if the user is not authenticated
 };
 
-
 // Routes
 app.use("/", authRoutes);
 app.use("/users", ensureAuthenticated, userRoutes);
@@ -71,7 +69,7 @@ app.use("/orders", ensureAuthenticated, ordersRoutes);
 app.use("/agents", ensureAuthenticated, agentsRoutes);
 
 app.get("/", (req, res) => {
- res.render("index");
+  res.render("index");
 });
 
 app.listen(PORT, () => {

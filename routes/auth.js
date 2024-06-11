@@ -5,7 +5,13 @@ const router = express.Router();
 
 router.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email", "https://www.googleapis.com/auth/user.addresses.read"] })
+  passport.authenticate("google", {
+    scope: [
+      "profile",
+      "email",
+      "https://www.googleapis.com/auth/user.addresses.read",
+    ],
+  })
 );
 
 router.get(
