@@ -1,8 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import session from "express-session";
 import RedisStore from "connect-redis";
+import session from "express-session";
 import { createClient } from "redis";
 import userRoutes from "./routes/Users.js";
 import productRoutes from "./routes/Product.js";
