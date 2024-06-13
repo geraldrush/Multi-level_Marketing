@@ -12,7 +12,11 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
-      scope: ['profile', 'email', 'https://www.googleapis.com/auth/user.addresses.read']
+      scope: [
+        "profile",
+        "email",
+        "https://www.googleapis.com/auth/user.addresses.read",
+      ],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -21,14 +25,17 @@ passport.use(
         });
 
         if (!user) {
-          const { name, email, id } = profile;
-          const location = profile._json.address?.formatted || 'Unknown';
+          const { displayName: name, emails, id, photos } = profile;
+          const gmail = emails[0].value; // Use `gmail` instead of `email`
+          const image = photos[0].value;
+          const location = profile._json.address?.formatted || "Unknown";
 
           user = await prisma.user.create({
             data: {
               name,
               googleId: id,
-              gmail: email,
+              gmail, // Use `gmail` instead of `email`
+              image,
               location,
               role: "USER",
             },
