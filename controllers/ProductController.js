@@ -14,15 +14,11 @@ export const createProduct = async (req, res) => {
         commission,
         agentId,
       },
-      include: {
-        orders: true,
-        agent: true,
-      },
     });
-    res.status(201).json(product);
+    res.redirect('/products/dashboard');
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
@@ -70,12 +66,9 @@ export const getProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, commission, agentId } = req.body;
-
   try {
     const product = await prisma.product.update({
-      where: {
-        id,
-      },
+      where: { id },
       data: {
         name,
         description,
@@ -83,15 +76,11 @@ export const updateProduct = async (req, res) => {
         commission,
         agentId,
       },
-      include: {
-        orders: true,
-        agent: true,
-      },
     });
-    res.json(product);
+    res.redirect('/products/dashboard');
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: 'Something went wrong' });
   }
 };
 
@@ -104,9 +93,9 @@ export const deleteProduct = async (req, res) => {
         id,
       },
     });
-    res.json(product);
+    res.redirect('/products/dashboard');
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: 'Something went wrong' });
   }
 };

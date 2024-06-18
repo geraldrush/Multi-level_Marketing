@@ -67,6 +67,7 @@ app.use("/users", ensureAuthenticated, userRoutes);
 app.use("/products", ensureAuthenticated, productRoutes);
 app.use("/orders", ensureAuthenticated, ordersRoutes);
 app.use("/agents", ensureAuthenticated, agentsRoutes);
+app.use("/dashboard", ensureAuthenticated, productRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");
