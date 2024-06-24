@@ -1,78 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Agents</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      background-color: #fff;
-      margin: 10px 0;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .agent-image {
-      max-width: 100px;
-      border-radius: 50%;
-    }
-    .agent-info {
-      display: flex;
-      align-items: center;
-    }
-    .agent-details {
-      margin-left: 20px;
-    }
-    .agent-details strong {
-      display: block;
-      margin: 5px 0;
-    }
-    .reviews {
-      margin-top: 10px;
-    }
-    .review-item {
-      background-color: #eef;
-      margin: 5px 0;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Agents</h1>
-  <ul>
-    <% agents.forEach(agent => { %>
-      <li>
-        <div class="agent-info">
-          <img src="<%= agent.image %>" alt="Agent Image" class="agent-image">
-          <div class="agent-details">
-            <strong>Name:</strong> <%= agent.name %><br>
-            <strong>Town:</strong> <%= agent.town %><br>
-            <strong>Products in Stock:</strong> <%= agent.stock %><br>
-            <strong>Reviews:</strong>
-            <div class="reviews">
-              <% agent.reviews.forEach(review => { %>
-                <div class="review-item">
-                  <%= review %>
-                </div>
-              <% }) %>
-            </div>
-          </div>
-        </div>
-      </li>
+<strong>Reviews:</strong>
+<div class="reviews">
+  <% if (agent.reviews && agent.reviews.length > 0) { %>
+    <% agent.reviews.forEach(review => { %>
+      <div class="review-item">
+        <%= review %>
+      </div>
     <% }) %>
-  </ul>
-</body>
-</html>
+  <% } else { %>
+    <p>No reviews available.</p>
+  <% } %>
+</div>

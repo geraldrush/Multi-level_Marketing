@@ -34,6 +34,15 @@ model Agent {
   sales    Int
   orders   Order[]
   chats    Chat[]
+  reviews  String[]
+  Review   Review[]
+}
+
+model Review {
+  id      String @id @default(cuid())
+  content String
+  agentId String
+  agent   Agent  @relation(fields: [agentId], references: [id])
 }
 
 model Product {
